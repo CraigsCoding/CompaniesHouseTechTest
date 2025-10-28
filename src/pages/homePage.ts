@@ -3,13 +3,15 @@ import AvailabilitySection from '../sections/homePage/availabilitySection';
 import RoomSection from '../sections/homePage/roomsSection';
 import LocationSection from '../sections/homePage/locationSection';
 import ContactFormSection from '../sections/homePage/contactFormSection';
+import NavLinkSection from '../sections/homePage/navLinkSection';
 
 export default class HomePage {
     protected page: Page;
     private availabilitySection: AvailabilitySection;
     private roomSection: RoomSection; 
     private locationSection: LocationSection;
-    private contactFormSection: any;
+    private contactFormSection: ContactFormSection;
+    private navLinkSection: NavLinkSection;
     
     constructor(page: Page) {
         this.page = page;
@@ -17,6 +19,7 @@ export default class HomePage {
         this.roomSection = new RoomSection(this.page);
         this.locationSection = new LocationSection(this.page);
         this.contactFormSection = new ContactFormSection(this.page);
+        this.navLinkSection = new NavLinkSection(this.page);
     }
 
     async navigate() {
@@ -41,5 +44,17 @@ export default class HomePage {
 
     getContactFormSection(): ContactFormSection {
         return this.contactFormSection;
+    }
+
+    getNavLinkSection(): NavLinkSection {
+        return this.navLinkSection;
+    }
+
+    async checkForPageScroll(buttonToClick?: any): Promise<boolean> {
+        const initialPageScroll = await this.page.evaluate(() => window.scrollY);
+        await buttonToClick.click();
+        const pageScrollAfterButtonClick = await this.page.evaluate(() => window.scrollY);
+        const hasPageScrolled = initialPageScroll !== pageScrollAfterButtonClick;
+        return hasPageScrolled;
     }
 }

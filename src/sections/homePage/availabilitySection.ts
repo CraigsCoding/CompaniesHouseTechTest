@@ -7,6 +7,10 @@ export default class AvailabilitySection {
         this.page = page;
     }
 
+     async getBookingSection() {
+        return this.page.locator('#booking');
+    }
+
     async selectDates(checkInDate: string, checkOutDate: string) {
         await this.page.getByRole('textbox').nth(0).fill(checkInDate);
         await this.page.getByRole('textbox').nth(1).fill(checkOutDate);
@@ -20,11 +24,5 @@ export default class AvailabilitySection {
         await this.page.waitForSelector('.room-available');
     }
 
-    async checkForPageScroll(buttonToClick?: any): Promise<boolean> {
-        const initialPageScroll = await this.page.evaluate(() => window.scrollY);
-        await buttonToClick.click();
-        const pageScrollAfterButtonClick = await this.page.evaluate(() => window.scrollY);
-        const hasPageScrolled = initialPageScroll !== pageScrollAfterButtonClick;
-        return hasPageScrolled;
-    }
+    
 }
