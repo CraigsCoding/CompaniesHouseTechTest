@@ -7,7 +7,7 @@ export default class AvailabilitySection {
         this.page = page;
     }
 
-     async getBookingSection() {
+    async getBookingSection() {
         return this.page.locator('#booking');
     }
 
@@ -24,5 +24,5 @@ export default class AvailabilitySection {
         await this.page.waitForSelector('.room-available');
     }
 
-    
+
 }

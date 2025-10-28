@@ -8,11 +8,11 @@ import NavLinkSection from '../sections/homePage/navLinkSection';
 export default class HomePage {
     protected page: Page;
     private availabilitySection: AvailabilitySection;
-    private roomSection: RoomSection; 
+    private roomSection: RoomSection;
     private locationSection: LocationSection;
     private contactFormSection: ContactFormSection;
     private navLinkSection: NavLinkSection;
-    
+
     constructor(page: Page) {
         this.page = page;
         this.availabilitySection = new AvailabilitySection(this.page);

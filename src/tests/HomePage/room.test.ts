@@ -16,7 +16,7 @@ test.describe('Room Section Tests', () => {
         const rooms = await roomSection.getRoomsSection();
         const titleText = rooms.getByRole('heading', { name: 'Our Rooms' });
         const descriptionText = rooms.getByText('Comfortable beds and delightful breakfast from locally sourced ingredients')
-        
+
         await expect(titleText).toBeVisible();
         await expect(descriptionText).toBeVisible();
     });
@@ -32,7 +32,7 @@ test.describe('Room Section Tests', () => {
 
         for (let i = 0; i < await rooms.count(); i++) {
             const room = rooms.nth(i);
-            
+
             await expect(room.getByRole('img')).toBeVisible();
             await expect(room.locator('.card-body')).toBeVisible();
             await expect(room.getByText('Per Night')).toBeVisible();

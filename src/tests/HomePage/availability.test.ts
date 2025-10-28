@@ -3,7 +3,7 @@ import HomePage from './../../pages/homePage';
 import AvailabilitySection from '../../sections/homePage/availabilitySection';
 
 let homepage: HomePage;
-let availabilitySection: AvailabilitySection; 
+let availabilitySection: AvailabilitySection;
 
 test.describe('Check Room Availability Tests', () => {
   test.beforeEach(async ({ page }) => {

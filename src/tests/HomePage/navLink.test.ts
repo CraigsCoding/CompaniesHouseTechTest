@@ -39,7 +39,7 @@ test.describe('Navigation Bar Tests', () => {
         await expect(availabilitySection).toBeInViewport();
     });
 
-    
+
     //broken, amentities link does not navigate anywhere
     test('Navigate to amenities section via Nav Bar link', async ({ page }) => {
         const navBar = await narBarSection.getNavLinkSection();
