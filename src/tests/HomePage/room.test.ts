@@ -5,11 +5,12 @@ import RoomSection from '../../sections/homePage/roomsSection';
 let homepage: HomePage;
 let roomSection: RoomSection;
 
+
 test.describe('Room Section Tests', () => {
     test.beforeEach(async ({ page }) => {
         homepage = new HomePage(page);
         roomSection = homepage.getRoomSection();
-        await homepage.navigate();
+        await homepage.goToHomePage();
     });
 
     test('Room section title and description are visible', async () => {

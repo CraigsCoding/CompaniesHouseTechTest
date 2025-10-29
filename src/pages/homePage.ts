@@ -4,6 +4,7 @@ import RoomSection from '../sections/homePage/roomsSection';
 import LocationSection from '../sections/homePage/locationSection';
 import ContactFormSection from '../sections/homePage/contactFormSection';
 import NavLinkSection from '../sections/homePage/navLinkSection';
+import Utils from '../utils/utils';
 
 export default class HomePage {
     protected page: Page;
@@ -12,6 +13,7 @@ export default class HomePage {
     private locationSection: LocationSection;
     private contactFormSection: ContactFormSection;
     private navLinkSection: NavLinkSection;
+    private utils: Utils;
 
     constructor(page: Page) {
         this.page = page;
@@ -20,10 +22,11 @@ export default class HomePage {
         this.locationSection = new LocationSection(this.page);
         this.contactFormSection = new ContactFormSection(this.page);
         this.navLinkSection = new NavLinkSection(this.page);
+        this.utils = new Utils(this.page);
     }
 
-    async navigate() {
-        await this.page.goto('https://automationintesting.online/');
+    async goToHomePage() {
+        await this.utils.navigate();
     }
 
     async verifyPageLoaded() {
