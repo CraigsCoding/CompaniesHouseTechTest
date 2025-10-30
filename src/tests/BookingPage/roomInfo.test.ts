@@ -10,11 +10,12 @@ test.describe('Check Room Information Tests', () => {
   test.beforeEach(async ({ page }) => {
     bookingPage = new BookingPage(page);
     rooms = new RoomSection(page);
+    await bookingPage.goToBookingPage();
     });
 
     test('Room Info section is displayed after selecting room to book', async ({ page }) => {
+        await rooms.selectRoomToBook(RoomType.Double); 
         const roomInfoSection = bookingPage.getRoomInfoSection();
-        rooms.selectRoomToBook(RoomType.Double);
         const roomInfo = await roomInfoSection.getRoomInfoSection()
         await expect(roomInfo).toBeVisible();
     });

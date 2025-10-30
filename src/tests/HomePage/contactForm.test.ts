@@ -10,7 +10,7 @@ test.describe('Contact Form Tests', () => {
     test.beforeEach(async ({ page }) => {
         homepage = new HomePage(page);
         contactFormSection = homepage.getContactFormSection();
-        await homepage.navigate();
+        await homepage.goToHomePage();
     });
 
     test('Contact Form section is visible', async ({ page }) => {

@@ -2,6 +2,7 @@ import { Page } from '@playwright/test';
 import HomePage from './homePage';
 import RoomInfoSection from '../sections/bookingPage/roomInfoSection';
 import RoomBookingSection from '../sections/bookingPage/roomBookingSection';
+import SimilarRoomsSection from '../sections/bookingPage/similarRoomsSection';
 import Utils from '../utils/utils';
 
 export default class BookingPage {
@@ -9,6 +10,7 @@ export default class BookingPage {
     private homePage: HomePage;
     private roomInfoSection: RoomInfoSection;
     private roomBookingSection: RoomBookingSection;
+    private similarRoomsSection: SimilarRoomsSection;
     private utils: Utils;
     
     constructor(page: Page) {
@@ -17,6 +19,7 @@ export default class BookingPage {
         this.utils = new Utils(this.page);
         this.roomInfoSection = new RoomInfoSection(this.page);
         this.roomBookingSection = new RoomBookingSection(this.page);
+        this.similarRoomsSection = new SimilarRoomsSection(this.page);
     }
 
     async goToBookingPage() {
@@ -29,6 +32,10 @@ export default class BookingPage {
 
     getRoomBookingSection() {
         return this.roomBookingSection;
+    }
+
+    getSimilarRoomsSection() {
+        return this.similarRoomsSection;
     }
 
 

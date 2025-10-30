@@ -12,6 +12,7 @@ test.describe('Check Room Information Tests', () => {
     bookingPage = new BookingPage(page);
     rooms = new RoomSection(page);
     utils = new Utils(page);
+    await bookingPage.goToBookingPage();
     });
 
     test('Room Info section is displayed after selecting room to book', async ({ page }) => {
@@ -102,6 +103,7 @@ test.describe('Check Room Information Tests', () => {
         await expect(await errorBox).toBeVisible();
     });
 
+    //failing test, button is enabled even when dates are unavailable
     test('reserve button is disabled if dates are unavailable', async ({ page }) => {
         await utils.navigate('reservation/2?checkin=2026-12-01&checkout=2026-12-10');
         const book = bookingPage.getRoomBookingSection();

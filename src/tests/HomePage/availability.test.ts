@@ -9,7 +9,7 @@ test.describe('Check Room Availability Tests', () => {
   test.beforeEach(async ({ page }) => {
     homepage = new HomePage(page);
     availabilitySection = homepage.getAvailabilitySection();
-    await homepage.navigate();
+    await homepage.goToHomePage();
   });
 
   test('Check Availability subsection title is displayed', async ({ page }) => {

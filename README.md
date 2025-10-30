@@ -39,3 +39,4 @@ footer buttons do not work and just scroll up if you are on booking page
 User is charged for days rather than nights (if you check in one day and check out the next, it charges you for 2 days), seems to be if you use the calendar widget, not directly changing the URL parameters
 user gets application error if trying to book a room if the room is not available for that date
 reserve button is enabled even when room is unavailable
+calendar widget is not designed for accessibility, if someone has a condition related to motor function they would have difficulty selecting a date as its only drag and drop functionality.

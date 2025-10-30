@@ -13,7 +13,7 @@ test.describe('Navigation Bar Tests', () => {
         homepage = new HomePage(page);
         narBarSection = homepage.getNavLinkSection();
         roomSection = homepage.getRoomSection();
-        await homepage.navigate();
+        await homepage.goToHomePage();
     });
 
     test('Navigation Bar is visible', async ({ page }) => {

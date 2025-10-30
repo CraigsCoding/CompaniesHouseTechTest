@@ -9,7 +9,7 @@ test.describe('our location tests', () => {
   test.beforeEach(async ({ page }) => {
     homepage = new HomePage(page);
     locationSection = homepage.getLocationSection();
-    await homepage.navigate();
+    await homepage.goToHomePage();
   });
 
   test('Location subsection title and description is displayed', async ({ page }) => {

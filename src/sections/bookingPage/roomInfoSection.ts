@@ -8,7 +8,8 @@ export default class RoomInfoSection {
     }
 
     async getRoomInfoSection() {
-        return this.page.getByRole('row');
+        //improve selector in the long term
+        return this.page.getByText('Double RoomAccessible Max 2 GuestsRoom DescriptionVestibulum sollicitudin,');
     }
 
 }
