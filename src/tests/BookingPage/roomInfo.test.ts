@@ -7,26 +7,28 @@ let bookingPage: BookingPage;
 let rooms: RoomSection
 
 test.describe('Check Room Information Tests', () => {
-  test.beforeEach(async ({ page }) => {
-    bookingPage = new BookingPage(page);
-    rooms = new RoomSection(page);
-    await bookingPage.goToBookingPage();
+    test.beforeEach(async ({ page }) => {
+        bookingPage = new BookingPage(page);
+        rooms = new RoomSection(page);
+        await bookingPage.goToHomePage();
     });
 
     test('Room Info section is displayed after selecting room to book', async ({ page }) => {
-        await rooms.selectRoomToBook(RoomType.Double); 
+        await rooms.selectRoomToBook(RoomType.Double);
         const roomInfoSection = bookingPage.getRoomInfoSection();
         const roomInfo = await roomInfoSection.getRoomInfoSection()
+        
         await expect(roomInfo).toBeVisible();
     });
 
     test('Room Name, Description, Features and Policies are visible in Room Info section', async ({ page }) => {
         rooms.selectRoomToBook(RoomType.Suite);
+        const roomInfoSection = bookingPage.getRoomInfoSection();
 
-        const roomName = page.getByRole('heading', { name: 'Suite Room' });
-        const roomDescription = page.getByText('Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl.');
-        const roomFeatures = page.getByRole('heading', { name: 'Room Features' });
-        const roomPolicies = page.getByRole('heading', { name: 'Room Policies' });
+        const roomName = await roomInfoSection.getRoomInfoHeader('Suite');
+        const roomDescription = await roomInfoSection.getRoomDescription();
+        const roomFeatures = await roomInfoSection.getRoomFeaturesHeader();
+        const roomPolicies = await roomInfoSection.getRoomPoliciesHeader();
 
         await expect(roomName).toBeVisible();
         await expect(roomDescription).toBeVisible();

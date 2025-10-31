@@ -3,30 +3,31 @@ import HomePage from '../../pages/homePage';
 import ContactFormSection from '../../sections/homePage/contactFormSection';
 
 let homepage: HomePage;
-let contactFormSection: ContactFormSection;
+let contactForm: ContactFormSection;
+let contactFormSection: any;
 
 test.describe('Contact Form Tests', () => {
 
     test.beforeEach(async ({ page }) => {
         homepage = new HomePage(page);
-        contactFormSection = homepage.getContactFormSection();
+        contactForm = await homepage.getContactForm();
         await homepage.goToHomePage();
     });
 
     test('Contact Form section is visible', async ({ page }) => {
-        const contactForm = contactFormSection.getContactFormSection();
-        await expect(contactForm).toBeVisible();
+        const contactFormSection = await contactForm.getContactFormSection();
+        await expect(contactFormSection).toBeVisible();
     });
 
     test('Contact Form has name, email, phone, subject & message fields and submit button', async ({ page }) => {
-        const contactForm = contactFormSection.getContactFormSection();
+        const contactFormSection = await contactForm.getContactFormSection();
 
-        const nameField = contactForm.getByTestId('ContactName');
-        const emailField = contactForm.getByTestId('ContactEmail');
-        const phoneField = contactForm.getByTestId('ContactPhone')
-        const subjectField = contactForm.getByTestId('ContactSubject');
-        const messageField = contactForm.getByTestId('ContactDescription');
-        const submitButton = contactForm.getByRole('button', { name: 'Submit' });
+        const nameField = await contactForm.getContactNameField();
+        const emailField = await contactForm.getContactEmailField();
+        const phoneField = await contactForm.getContactPhoneField();
+        const subjectField = await contactForm.getContactSubjectField();
+        const messageField = await contactForm.getContactMessageField();
+        const submitButton = await contactForm.getSubmitButton();
 
         await expect(nameField).toBeVisible();
         await expect(emailField).toBeVisible();
@@ -38,27 +39,17 @@ test.describe('Contact Form Tests', () => {
     });
 
     test('Submitting the contact form with valid data shows a success message', async ({ page }) => {
-        const contactForm = contactFormSection.getContactFormSection();
-
-        await contactForm.getByTestId('ContactName').fill('John Doe');
-        await contactForm.getByTestId('ContactEmail').fill('fake@fakeemail.com');
-        await contactForm.getByTestId('ContactPhone').fill('12345678910');
-        await contactForm.getByTestId('ContactSubject').fill('Test Subject');
-        await contactForm.getByTestId('ContactDescription').fill('This is a test message.');
-        await contactForm.getByRole('button', { name: 'Submit' }).click();
-
-        const successMessage = contactForm.getByText('Thanks for getting in touch John Doe!');
+        const name = 'John Doe';
+        await contactForm.submitContactForm(name, 'fake@fakeemail.com', '1234567891011', 'Test Subject', 'This is a test message.');
+        const successMessage = await contactForm.getSuccessMessage(name);
+        
         await expect(successMessage).toBeVisible();
     });
 
     test('Submitting the contact form with missing required data shows an error message', async ({ page }) => {
-        const contactForm = contactFormSection.getContactFormSection();
+        await contactForm.submitContactForm('', '', '', '', '');
+        const errorMessage = await contactForm.getErrorMessage();
 
-        await contactForm.getByTestId('ContactName').fill('');
-        await contactForm.getByTestId('ContactEmail').fill('invalidemail');
-        await contactForm.getByRole('button', { name: 'Submit' }).click();
-
-        const errorMessage = contactForm.locator('div.alert')
         await expect(errorMessage).toBeVisible();
     });
 

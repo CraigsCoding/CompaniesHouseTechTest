@@ -33,23 +33,23 @@ export default class HomePage {
         await this.page.waitForSelector('.hotel-room-info');
     }
 
-    getAvailabilitySection(): AvailabilitySection {
+    async getAvailability(): Promise<AvailabilitySection> {
         return this.availabilitySection;
     }
 
-    getRoomSection(): RoomSection {
+    async getRoom(): Promise<RoomSection> {
         return this.roomSection;
     }
 
-    getLocationSection(): LocationSection {
+    async getLocation(): Promise<LocationSection> {
         return this.locationSection;
     }
 
-    getContactFormSection(): ContactFormSection {
+    async getContactForm(): Promise<ContactFormSection> {
         return this.contactFormSection;
     }
 
-    getNavLinkSection(): NavLinkSection {
+    async getNavLink(): Promise<NavLinkSection> {
         return this.navLinkSection;
     }
 

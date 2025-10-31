@@ -5,18 +5,17 @@ import RoomSection from '../../sections/homePage/roomsSection';
 let homepage: HomePage;
 let roomSection: RoomSection;
 
-
 test.describe('Room Section Tests', () => {
     test.beforeEach(async ({ page }) => {
         homepage = new HomePage(page);
-        roomSection = homepage.getRoomSection();
+        roomSection = await homepage.getRoom();
+        
         await homepage.goToHomePage();
     });
 
     test('Room section title and description are visible', async () => {
-        const rooms = await roomSection.getRoomsSection();
-        const titleText = rooms.getByRole('heading', { name: 'Our Rooms' });
-        const descriptionText = rooms.getByText('Comfortable beds and delightful breakfast from locally sourced ingredients')
+        const titleText = await roomSection.getRoomsSectionHeading();
+        const descriptionText = await roomSection.getRoomsSectionSubText();
 
         await expect(titleText).toBeVisible();
         await expect(descriptionText).toBeVisible();
@@ -34,11 +33,10 @@ test.describe('Room Section Tests', () => {
         for (let i = 0; i < await rooms.count(); i++) {
             const room = rooms.nth(i);
 
-            await expect(room.getByRole('img')).toBeVisible();
-            await expect(room.locator('.card-body')).toBeVisible();
-            await expect(room.getByText('Per Night')).toBeVisible();
-            await expect(room.getByText("Book now")).toBeVisible();
-            await expect(room.getByText("Book now")).toBeEnabled();
+            await expect(await roomSection.getRoomImage(room)).toBeVisible();
+            await expect(await roomSection.getRoomTextBody(room)).toBeVisible();
+            await expect(await roomSection.getRoomPricePerNight(room)).toBeVisible();
+            await expect(await roomSection.getRoomBookNowButton(room)).toBeEnabled();
         }
     });
 

@@ -1,4 +1,4 @@
-import {Page} from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export default class SimilarRoomsSection {
     private page: Page;
@@ -35,10 +35,5 @@ export default class SimilarRoomsSection {
     async getRoomDescription(roomType: string) {
         return this.page.locator('div').filter({ hasText: roomType }).nth(4).locator('p.card-text.small').first()
     }
-
-
-
-
-
 
 }

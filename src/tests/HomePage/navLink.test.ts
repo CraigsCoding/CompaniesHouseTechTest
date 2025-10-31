@@ -4,76 +4,75 @@ import NavBar from '../../sections/homePage/navLinkSection';
 import Rooms from '../../sections/homePage/roomsSection';
 
 let homepage: HomePage;
-let narBarSection: NavBar;
+let navBarSection: NavBar;
 let roomSection: Rooms;
 
 test.describe('Navigation Bar Tests', () => {
 
     test.beforeEach(async ({ page }) => {
         homepage = new HomePage(page);
-        narBarSection = homepage.getNavLinkSection();
-        roomSection = homepage.getRoomSection();
+        navBarSection = await homepage.getNavLink();
+        roomSection = await homepage.getRoom();
+
         await homepage.goToHomePage();
     });
 
     test('Navigation Bar is visible', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
+        const navBar = await navBarSection.getNavLinkSection();
+
         await expect(navBar).toBeVisible();
     });
 
     test('Navigate to Rooms section via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const roomsLink = navBar.getByRole('link', { name: 'Rooms' });
+        const roomsLink = await navBarSection.getRoomsNavLink();
         await roomsLink.click();
+        const roomsSection = await roomSection.getRoomsSection();
 
-        const ourRooms = await homepage.getRoomSection().getRoomsSection();
-        await expect(ourRooms).toBeInViewport();
+        await expect(roomsSection).toBeInViewport();
     });
 
     test('Navigate to Booking Availability Section via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const bookingLink = navBar.getByRole('link', { name: 'Booking' });
+        const bookingLink = await navBarSection.getBookingNavLink();
         await bookingLink.click();
-
-        const availabilitySection = await homepage.getAvailabilitySection().getBookingSection();
+        const getAvailability = await homepage.getAvailability();
+        const availabilitySection = await getAvailability.getBookingSection();
+        
         await expect(availabilitySection).toBeInViewport();
     });
 
 
     //broken, amentities link does not navigate anywhere
     test('Navigate to amenities section via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const amenitiesLink = navBar.getByRole('link', { name: 'Amenities' });
+        const amenitiesLink = await navBarSection.getNavLinkSection();
         await amenitiesLink.click();
-
-        const amenitiesSection = await homepage.getRoomSection().getRoomsSection();
+        const amenitiesSection = await roomSection.getRoomsSection();
+        
         await expect(amenitiesSection).toBeInViewport();
     });
 
     test('Navigate to location section via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const locationLink = navBar.getByRole('link', { name: 'Location' });
+        const locationLink = await navBarSection.getLocationNavLink();
         await locationLink.click();
-
-        const locationSection = await homepage.getLocationSection().getLocationSection();
+        const getLocation = await homepage.getLocation();
+        const locationSection = await getLocation.getLocationSection();
+        
         await expect(locationSection).toBeInViewport();
     });
 
     test('Navigate to contact us section via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const contactUsLink = navBar.getByRole('link', { name: 'Contact' });
+        const contactUsLink = await navBarSection.getContactNavLink();
         await contactUsLink.click();
-
-        const contactUsSection = await homepage.getContactFormSection().getContactFormSection();
+        const contactForm = await homepage.getContactForm();
+        const contactUsSection = await contactForm.getContactFormSection();
+        
         await expect(contactUsSection).toBeInViewport();
     });
 
     test('Navigate to admin page via Nav Bar link', async ({ page }) => {
-        const navBar = await narBarSection.getNavLinkSection();
-        const adminLink = navBar.getByRole('link', { name: 'Admin' });
+        const adminLink = await navBarSection.getAdminNavLink();
         await adminLink.click();
-
-        const loginForm = page.getByRole('heading', { name: 'Login' });
+        const loginForm = await navBarSection.getAdminLoginForm();
+        
         await expect(loginForm).toBeVisible();
     });
 

@@ -11,17 +11,13 @@ export default class RoomBookingSection {
         return this.page.getByText('Book This Room');
     }
 
-    async selectDatesToBook(checkInDate: string, checkOutDate: string): Promise<void> {
-
-    };
-
     async getPriceBreakdown(numberOfNights: string): Promise<any> {
-        return this.page.getByText(`£150 x ${numberOfNights} nights£` );
+        return this.page.getByText(`£150 x ${numberOfNights} nights£`);
     }
 
     async getCleaningFee(): Promise<any> {
         return this.page.getByText('Cleaning Fee£');
-    } 
+    }
 
     async getServiceFee(): Promise<any> {
         return this.page.getByText('Service fee£');
@@ -42,7 +38,7 @@ export default class RoomBookingSection {
     async getLastNameTextBox(): Promise<any> {
         return this.page.getByRole('textbox', { name: 'Lastname' })
     }
-    
+
     async getEmailTextBox(): Promise<any> {
         return this.page.getByRole('textbox', { name: 'Email' })
     }

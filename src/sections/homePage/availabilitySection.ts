@@ -24,5 +24,12 @@ export default class AvailabilitySection {
         await this.page.waitForSelector('.room-available');
     }
 
+    async getAvailabilitySectionHeading(): Promise<any> {
+        return this.page.getByRole('heading', { name: 'Check Availability & Book' });
+    }
+
+    async getCheckAvailabilityButton(): Promise<any> {
+        return this.page.getByRole('button', { name: 'Check Availability' });
+    }
 
 }

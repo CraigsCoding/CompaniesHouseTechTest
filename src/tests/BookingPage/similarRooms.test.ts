@@ -7,17 +7,18 @@ let bookingPage: BookingPage;
 let rooms: Rooms;
 
 test.describe('Check Simliar Rooms Available Tests', () => {
-    
+
     test.beforeEach(async ({ page }) => {
         bookingPage = new BookingPage(page);
         rooms = new Rooms(page);
-        await bookingPage.goToBookingPage();
+        await bookingPage.goToHomePage();
     });
 
     test('Similar Rooms section header is displayed on Booking Page', async ({ page }) => {
         await rooms.selectRoomToBook(RoomType.Double);
         const similarRooms = bookingPage.getSimilarRoomsSection();
         const similarRoomsSection = await similarRooms.getSimilarRoomsHeader();
+        
         await expect(similarRoomsSection).toBeVisible();
     });
 

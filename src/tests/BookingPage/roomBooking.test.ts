@@ -8,17 +8,18 @@ let rooms: RoomSection;
 let utils: Utils;
 
 test.describe('Check Room Information Tests', () => {
-  test.beforeEach(async ({ page }) => {
-    bookingPage = new BookingPage(page);
-    rooms = new RoomSection(page);
-    utils = new Utils(page);
-    await bookingPage.goToBookingPage();
+    test.beforeEach(async ({ page }) => {
+        bookingPage = new BookingPage(page);
+        rooms = new RoomSection(page);
+        utils = new Utils(page);
+        await bookingPage.goToHomePage();
     });
 
     test('Room Info section is displayed after selecting room to book', async ({ page }) => {
         rooms.selectRoomToBook(RoomType.Double);
         const roomBookingSection = bookingPage.getRoomBookingSection();
         const roomBooking = await roomBookingSection.getRoomBookingSection()
+        
         await expect(roomBooking).toBeVisible();
     });
 
@@ -27,6 +28,7 @@ test.describe('Check Room Information Tests', () => {
         await utils.navigate('reservation/2?checkin=2025-10-01&checkout=2025-10-30');
         const book = bookingPage.getRoomBookingSection();
         const priceBreakdown = await book.getPriceBreakdown('29');
+        
         await expect(priceBreakdown).toBeVisible();
     });
 
@@ -38,7 +40,7 @@ test.describe('Check Room Information Tests', () => {
         const serviceFee = await book.getServiceFee();
         const totalPrice = await book.getTotalPrice();
 
-        await expect(priceBreakdown).toHaveText('£150 x 5 nights£750' );
+        await expect(priceBreakdown).toHaveText('£150 x 5 nights£750');
         await expect(cleaningFee).toHaveText('Cleaning fee£25');
         await expect(serviceFee).toHaveText('Service fee£15');
         await expect(totalPrice).toHaveText('Total£790');
@@ -48,6 +50,7 @@ test.describe('Check Room Information Tests', () => {
         await utils.navigate('reservation/2?checkin=2026-11-01&checkout=2026-11-05');
         const book = bookingPage.getRoomBookingSection();
         const reserveButton = await book.getReserveButton();
+        
         await expect(reserveButton).toBeEnabled();
     });
 
@@ -56,6 +59,7 @@ test.describe('Check Room Information Tests', () => {
         await utils.navigate('reservation/2?checkin=1970-01-01&checkout=1970-01-30');
         const book = bookingPage.getRoomBookingSection();
         const reserveButton = await book.getReserveButton();
+        
         await expect(reserveButton).toBeDisabled();
     });
 
@@ -82,11 +86,11 @@ test.describe('Check Room Information Tests', () => {
         const reserveButton = await book.getReserveButton();
         await reserveButton.click();
 
-        book.fillPersonalDetails('John', 'Doe', 'fake@fakemail.com','1234567891011');
+        book.fillPersonalDetails('John', 'Doe', 'fake@fakemail.com', '1234567891011');
         const reserveButtonAfterDetails = await book.getReserveButton();
         reserveButtonAfterDetails.click();
-        
         const confirmationMessage = book.getBookingConfirmationMessage();
+        
         await expect(await confirmationMessage).toBeVisible();
     });
 
@@ -98,8 +102,8 @@ test.describe('Check Room Information Tests', () => {
 
         const reserveButtonAfterDetails = await book.getReserveButton();
         await reserveButtonAfterDetails.click();
-    
         const errorBox = book.getErrorMessage();
+        
         await expect(await errorBox).toBeVisible();
     });
 
@@ -110,7 +114,7 @@ test.describe('Check Room Information Tests', () => {
         const reserveButton = await book.getReserveButton();
         await reserveButton.click();
 
-        await book.fillPersonalDetails('John', 'Doe', 'fake@fakemail.com','1234567891011');
+        await book.fillPersonalDetails('John', 'Doe', 'fake@fakemail.com', '1234567891011');
         const reserveButtonAfterDetails = await book.getReserveButton();
         await reserveButtonAfterDetails.click();
 
@@ -123,8 +127,9 @@ test.describe('Check Room Information Tests', () => {
         const reserveButtonAgain = await bookAgain.getReserveButton();
         await reserveButtonAgain.click();
 
-        await bookAgain.fillPersonalDetails('Jane', 'Smith', 'fake@fakeemail.com','1098765432111');
+        await bookAgain.fillPersonalDetails('Jane', 'Smith', 'fake@fakeemail.com', '1098765432111');
         const reserveButtonAfterDetailsAgain = await bookAgain.getReserveButton();
+        
         expect(await reserveButtonAfterDetailsAgain).toBeDisabled();
     });
 });
