@@ -15,11 +15,16 @@ npx playwright test
 
 ## Project Structure
 ```
+bug-reports
+screenshots
+├── accessibilityReports/
+└── bugReportSupportingScreenshots
 src/
 ├── pages/
 ├── sections/
 ├── tests/
-└── index.ts
+└── utils
+test-plan
 ```
 
 ## Technologies Used
@@ -29,3 +34,9 @@ src/
 
 ## Author
 Craig Pearce
+
+## Test Plan
+The Test Plan created for this project can be found in the test-plan folder which is within the parent directory. It contains a markdown file breaking down the different aspects of this project. 
+
+## Bug Reports
+Bug Reports can be found in the bug-reports folder which is within the parent directory. It contains markdown files for each of the bugs found during testing (8 in total). Where appropriate, there are supporting screenshots for bug reports. They are embedded in the markdown files. If there are any issues with these when opening a report, the screeenshots can be found in screenshots/bugReportSupportingScreenshots as shown in the project structure section above. 
